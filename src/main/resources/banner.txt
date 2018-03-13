@@ -1,0 +1,8 @@
+
+${AnsiColor.BRIGHT_RED}    _   __          __     ______                      ${AnsiStyle.NORMAL}
+${AnsiColor.BRIGHT_RED}   / | / /  ___    / /_   / ____/  ____ _   _____  ___ ${AnsiStyle.NORMAL}
+${AnsiColor.BRIGHT_RED}  /  |/ /  / _ \  / __/  / __/    / __ `/  / ___/ / _ \${AnsiStyle.NORMAL}
+${AnsiColor.BRIGHT_RED} / /|  /  /  __/ / /_   / /___   / /_/ /  (__  ) /  __/${AnsiStyle.NORMAL}
+${AnsiColor.BRIGHT_RED}/_/ |_/   \___/  \__/  /_____/   \__,_/  /____/  \___/ ${AnsiStyle.NORMAL}
+
+${AnsiColor.BRIGHT_GREEN} :: Spring Boot ::        (v2.0.0.RELEASE) ${application.version}${AnsiStyle.NORMAL}
