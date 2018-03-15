@@ -53,8 +53,8 @@ public class PurchaseController {
     @GetMapping("hasbought")
     @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
-    public WebResponse<Boolean> hasBought(@RequestParam long goodsId) {
-        WebResponse<Boolean> webResponse = new WebResponse<>();
+    public WebResponse<PurchaseRecord> hasBought(@RequestParam("goodsId") long goodsId) {
+        WebResponse<PurchaseRecord> webResponse = new WebResponse<>();
         User user = UserContext.getCurrentUser();
         webResponse.setData(purchaseService.hasBought(user.getId(), goodsId));
         return webResponse;

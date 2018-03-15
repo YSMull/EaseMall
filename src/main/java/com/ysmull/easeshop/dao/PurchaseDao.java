@@ -47,7 +47,7 @@ public interface PurchaseDao {
      *
      * @param userId  用户id
      * @param goodsId 商品id
-     * @return 用户是否购买过该商品
+     * @return 该商品的购买记录
      */
-    boolean hasBought(long userId, long goodsId);
+    PurchaseRecord hasBought(long userId, long goodsId);
 }

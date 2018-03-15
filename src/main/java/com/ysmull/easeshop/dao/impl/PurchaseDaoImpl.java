@@ -65,12 +65,16 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public boolean hasBought(long userId, long goodsId) {
+    public PurchaseRecord hasBought(long userId, long goodsId) {
         String sql = "select * from ease_purchase_record where user_id=:userId and goods_id=:goodsId fetch first 1 rows only";
         Map<String, Object> params = new HashMap<>(4);
         params.put("userId", userId);
         params.put("goodsId", goodsId);
         List<PurchaseRecord> res = namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
-        return !res.isEmpty();
+        if (!res.isEmpty()) {
+            return res.get(0);
+        } else {
+            return null;
+        }
     }
 }

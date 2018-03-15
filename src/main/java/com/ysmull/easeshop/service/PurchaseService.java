@@ -53,7 +53,7 @@ public class PurchaseService {
         return purchaseDao.getPurchaseRecord(snapId, userId);
     }
 
-    public boolean hasBought(long userId, long goodsId) {
+    public PurchaseRecord hasBought(long userId, long goodsId) {
         return purchaseDao.hasBought(userId, goodsId);
     }
 
