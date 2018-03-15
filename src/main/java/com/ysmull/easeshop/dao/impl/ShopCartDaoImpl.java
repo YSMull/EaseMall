@@ -49,8 +49,8 @@ public class ShopCartDaoImpl implements ShopCartDao {
 
     @Override
     public void addCart(long userId, long goodsId, long amount) {
-        String sql = "insert into ease_cart(user_id, goods_id, amount) " +
-                "values(:userId,:goodsId,:amount)";
+        String sql = "INSERT INTO ease_cart(user_id, goods_id, amount) " +
+                "VALUES(:userId,:goodsId,:amount)";
         Map<String, Object> params = new HashMap<>(4);
         params.put("userId", userId);
         params.put("goodsId", goodsId);

@@ -1,5 +1,6 @@
 package com.ysmull.easeshop.controller.shop;
 
+import com.ysmull.easeshop.annotation.Privilege;
 import com.ysmull.easeshop.dao.ShopCartDao;
 import com.ysmull.easeshop.model.entity.User;
 import com.ysmull.easeshop.model.vo.ShopCartVO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 /**
  * @author maoyusu
@@ -25,6 +27,7 @@ public class CartController {
     private ShopCartDao shopCartDao;
 
     @GetMapping("/getcart")
+    @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
     WebResponse<List<ShopCartVO>> getcart() {
         WebResponse<List<ShopCartVO>> webResponse = new WebResponse<>();
@@ -35,18 +38,21 @@ public class CartController {
     }
 
     @PostMapping("/addcart")
+    @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
     void addcart(@RequestBody ShopCartVO shopCartVO) {
         cartService.addCart(shopCartVO.getUserId(), shopCartVO.getGoodsId(), shopCartVO.getAmount());
     }
 
     @PostMapping("/changecart")
+    @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
     void changecart(@RequestBody ShopCartVO shopCartVO) {
         shopCartDao.changeCartAmount(shopCartVO.getUserId(), shopCartVO.getGoodsId(), shopCartVO.getAmount());
     }
 
     @PostMapping("/deletecart")
+    @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
     void deletecart(@RequestBody ShopCartVO shopCartVO) {
         shopCartDao.delete(shopCartVO.getUserId(), shopCartVO.getGoodsId());

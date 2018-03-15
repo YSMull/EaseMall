@@ -1,23 +1,33 @@
 package com.ysmull.easeshop.model.entity;
 
+
 /**
  * @author maoyusu
  */
 public class User {
 
-    private long id;
+    public enum ROLE {
+        /**
+         * 买家
+         */
+        BUYER,
+        /**
+         * 卖家
+         */
+        SELLER;
+
+    }
+
+    private Long id;
     private String username;
     private String password;
-    private int role;
+    private ROLE role;
 
-    public static final int BUYER = 0;
-    public static final int SELLER = 1;
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,11 +47,11 @@ public class User {
         this.password = password;
     }
 
-    public int getRole() {
+    public ROLE getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(ROLE role) {
         this.role = role;
     }
 

@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
@@ -31,9 +29,9 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Override
     public void batchInsert(List<PurchaseRecord> purchaseRecords) {
-        String sql = "insert into ease_purchase_record(user_id, goods_id, " +
+        String sql = "INSERT INTO ease_purchase_record(user_id, goods_id, " +
                 "snap_goods_name, snap_price, snap_description, snap_detail, snap_pic_url, amount)" +
-                " values(:userId, :goodsId, :snapGoodsName, :snapPrice, :snapDescription, :snapDetail, :snapPicUrl, :amount)";
+                " VALUES(:userId, :goodsId, :snapGoodsName, :snapPrice, :snapDescription, :snapDetail, :snapPicUrl, :amount)";
         namedParameterJdbcTemplate.batchUpdate(sql, SqlParameterSourceUtils.createBatch(purchaseRecords.toArray()));
     }
 

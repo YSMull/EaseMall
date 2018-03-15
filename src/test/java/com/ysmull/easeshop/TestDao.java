@@ -13,7 +13,7 @@ public class TestDao {
 
 
     public void insert() {
-        String insertSql = "insert into ease_test(name) values(:threadName)";
+        String insertSql = "INSERT INTO ease_test(name) VALUES(:threadName)";
         MapSqlParameterSource insertParams = new MapSqlParameterSource();
         insertParams.addValue("threadName", Thread.currentThread().toString());
         namedParameterJdbcTemplate.update(insertSql, insertParams);

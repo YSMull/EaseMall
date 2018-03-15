@@ -44,10 +44,6 @@ public class GoodsService {
         return goodsList;
     }
 
-    public List<Goods> getGoodsByIds(List<Long> ids) {
-        return goodsDao.getGoodsByIds(ids);
-    }
-
     public Goods get(long goodsId) {
         return goodsDao.get(goodsId);
     }

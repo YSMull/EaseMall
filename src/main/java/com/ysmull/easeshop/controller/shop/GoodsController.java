@@ -1,5 +1,6 @@
 package com.ysmull.easeshop.controller.shop;
 
+import com.ysmull.easeshop.annotation.Privilege;
 import com.ysmull.easeshop.model.entity.Goods;
 import com.ysmull.easeshop.model.entity.User;
 import com.ysmull.easeshop.model.vo.WebResponse;
@@ -8,7 +9,6 @@ import com.ysmull.easeshop.util.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public class GoodsController {
     @ResponseBody
     List<Goods> goodsList() {
         User user = UserContext.getCurrentUser();
-        if (user != null && user.getRole() == User.SELLER) {
+        if (user != null && user.getRole() == User.ROLE.SELLER) {
             return goodsService.getPublishedGoods(user.getId());
         } else {
             return goodsService.getAllGoods();
@@ -41,14 +41,8 @@ public class GoodsController {
         return webResponse;
     }
 
-
-    @PostMapping("/goods/query")
-    @ResponseBody
-    List<Goods> getGoodsByIds(@RequestParam ArrayList<Long> ids) {
-        return goodsService.getGoodsByIds(ids);
-    }
-
     @DeleteMapping("/goods/delete/{goodsId}")
+    @Privilege(role = User.ROLE.SELLER)
     @ResponseBody
     WebResponse<Void> delete(@PathVariable("goodsId") long goodsId) {
         WebResponse<Void> webResponse = new WebResponse<>();

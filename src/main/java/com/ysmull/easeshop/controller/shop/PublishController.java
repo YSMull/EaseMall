@@ -1,6 +1,8 @@
 package com.ysmull.easeshop.controller.shop;
 
+import com.ysmull.easeshop.annotation.Privilege;
 import com.ysmull.easeshop.model.entity.Goods;
+import com.ysmull.easeshop.model.entity.User;
 import com.ysmull.easeshop.model.vo.WebResponse;
 import com.ysmull.easeshop.service.PicService;
 import com.ysmull.easeshop.service.PublishService;
@@ -27,6 +29,7 @@ public class PublishController {
      * tips: 这里的Goods直接从formData中解析
      */
     @PostMapping("/publish/new")
+    @Privilege(role = User.ROLE.SELLER)
     @ResponseBody
     WebResponse<Goods> publishNew(@RequestParam("file") MultipartFile pic, Goods goods) throws IOException {
         WebResponse<Goods> webResponse = new WebResponse<>();
@@ -37,6 +40,7 @@ public class PublishController {
     }
 
     @PostMapping("/publish/save")
+    @Privilege(role = User.ROLE.SELLER)
     @ResponseBody
     WebResponse<Goods> publishSave(@RequestParam("file") MultipartFile pic, Goods goods) throws IOException {
         WebResponse<Goods> webResponse = new WebResponse<>();

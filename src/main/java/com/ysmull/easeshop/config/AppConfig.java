@@ -3,6 +3,7 @@ package com.ysmull.easeshop.config;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -15,6 +16,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 @EnableCaching
+@EnableAspectJAutoProxy
 public class AppConfig implements AsyncConfigurer {
 
     @Override

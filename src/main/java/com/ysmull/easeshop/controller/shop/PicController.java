@@ -1,5 +1,7 @@
 package com.ysmull.easeshop.controller.shop;
 
+import com.ysmull.easeshop.annotation.Privilege;
+import com.ysmull.easeshop.model.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,7 @@ public class PicController {
     }
 
     @GetMapping("/pic/proxy")
+    @Privilege(role = User.ROLE.SELLER)
     void picProxy(@RequestParam("picUrl") String picUrl, HttpServletResponse res) throws IOException {
         URL pic = new URL(picUrl);
         URLConnection conn = pic.openConnection();

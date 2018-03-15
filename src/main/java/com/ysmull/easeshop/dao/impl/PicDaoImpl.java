@@ -23,7 +23,7 @@ public class PicDaoImpl implements PicDao {
 
     @Override
     public void savePic(String picName, String picId, byte[] picBytes) {
-        String sql = "insert into ease_goods_pic(uuid, name, pic) values(:uuid, :name, :pic)";
+        String sql = "INSERT INTO ease_goods_pic(uuid, name, pic) VALUES(:uuid, :name, :pic)";
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("uuid", picId);
         paramSource.addValue("name", picName, Types.VARCHAR);

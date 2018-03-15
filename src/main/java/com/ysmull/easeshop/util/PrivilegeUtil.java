@@ -1,14 +1,21 @@
 package com.ysmull.easeshop.util;
 
+import com.alibaba.fastjson.JSON;
 import com.ysmull.easeshop.model.entity.User;
+import com.ysmull.easeshop.model.vo.WebResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,13 +73,21 @@ public class PrivilegeUtil {
         return md5;
     }
 
-    public static Boolean needLogin(List<String> needLoginUrls, String target) {
-        for (String api : needLoginUrls) {
-            if (target.equals(api) || target.startsWith(api)) {
-                return true;
-            }
+    public static Object noAuth(User.ROLE[] roles) throws IOException {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        HttpServletResponse httpResponse = ((ServletRequestAttributes) requestAttributes).getResponse();
+        WebResponse<String> webResponse = new WebResponse<>();
+        if (roles.length > 1) {
+            webResponse.setCode(WebResponse.NEED_LOGIN);
+        } else if(roles[0].equals(User.ROLE.BUYER)) {
+            webResponse.setCode(WebResponse.NEED_BUYER);
+        } else if(roles[0].equals(User.ROLE.SELLER)) {
+            webResponse.setCode(WebResponse.NEED_SELLER);
         }
-        return false;
+        webResponse.setMsg("no auth!");
+        httpResponse.getWriter().write(JSON.toJSONString(webResponse));
+        httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return null;
     }
 
 }
