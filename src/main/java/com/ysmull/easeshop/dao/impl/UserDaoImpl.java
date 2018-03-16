@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Cacheable(cacheNames = "userCache", sync = true)
     public User getUserById(long id) {
-        String sql = "select * from ease_shop_user where id = :id";
+        String sql = "SELECT id,username,password,role FROM ease_shop_user WHERE id = :id";
         Map<String, Long> params = new HashMap<>(2);
         params.put("id", id);
         return namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(params), ROW_MAPPER);
@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getUserByUserName(String username) {
-        String sql = "select * from ease_shop_user where username = :username";
+        String sql = "SELECT id,username,password,role FROM ease_shop_user WHERE username = :username";
         Map<String, String> params = new HashMap<>(2);
         params.put("username", username);
         return namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource(params), ROW_MAPPER);

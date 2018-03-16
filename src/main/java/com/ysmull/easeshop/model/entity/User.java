@@ -14,7 +14,7 @@ public class User {
         /**
          * 卖家
          */
-        SELLER;
+        SELLER
 
     }
 

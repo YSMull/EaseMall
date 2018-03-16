@@ -27,16 +27,18 @@ public class GoodsDaoImpl implements GoodsDao {
 
     private static final BeanPropertyRowMapper<Goods> ROW_MAPPER = new BeanPropertyRowMapper<>(Goods.class);
 
+    private static final String FIELDS = "id,name,price,description,detail,pic_url,publisher,status";
+
     @Override
     public List<Goods> getAllGoods() {
-        String sql = "select * from ease_goods_info where status=1";
+        String sql = "SELECT " + FIELDS +" FROM ease_goods_info WHERE status=1";
         MapSqlParameterSource params = new MapSqlParameterSource();
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
     }
 
     @Override
     public List<Goods> getPublishedGoods(long publisher) {
-        String sql = "select * from ease_goods_info where publisher=:publisher and status=1";
+        String sql = "SELECT " + FIELDS +" FROM ease_goods_info WHERE publisher=:publisher AND status=1";
         Map<String, Object> params = new HashMap<>(2);
         params.put("publisher", publisher);
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
@@ -47,7 +49,7 @@ public class GoodsDaoImpl implements GoodsDao {
         if (CollectionUtils.isEmpty(ids)) {
             return Collections.emptyList();
         } else {
-            String sql = "select * from ease_goods_info where id in (:ids)";
+            String sql = "SELECT " + FIELDS +" FROM ease_goods_info WHERE id IN (:ids)";
             Map<String, Object> params = new HashMap<>(2);
             params.put("ids", ids);
             return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
@@ -56,7 +58,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
     @Override
     public Goods get(long goodsId) {
-        String sql = "select * from ease_goods_info where id =:goodsId and status = 1";
+        String sql = "SELECT " + FIELDS +" FROM ease_goods_info WHERE id =:goodsId AND status = 1";
         Map<String, Object> params = new HashMap<>(2);
         params.put("goodsId", goodsId);
         return namedParameterJdbcTemplate.queryForObject(sql, params, ROW_MAPPER);
@@ -64,8 +66,8 @@ public class GoodsDaoImpl implements GoodsDao {
 
     @Override
     public long insert(Goods goods) {
-        String sql = "insert into ease_goods_info(name, price, description, pic_url, detail, publisher) " +
-                "values(:name, :price, :description, :picUrl, :detail, :publisher)";
+        String sql = "INSERT INTO ease_goods_info(name, price, description, pic_url, detail, publisher) " +
+                "VALUES(:name, :price, :description, :picUrl, :detail, :publisher)";
         KeyHolder holder = new GeneratedKeyHolder();
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", goods.getName());
@@ -80,8 +82,8 @@ public class GoodsDaoImpl implements GoodsDao {
 
     @Override
     public void update(Goods goods) {
-        String sql = "update ease_goods_info set name=:name, price=:price, description=:description, pic_url=:picUrl, detail=:detail, publisher=:publisher" +
-                " where id=:id";
+        String sql = "UPDATE ease_goods_info SET name=:name, price=:price, description=:description, pic_url=:picUrl, detail=:detail, publisher=:publisher" +
+                " WHERE id=:id";
         KeyHolder holder = new GeneratedKeyHolder();
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", goods.getId());
@@ -97,7 +99,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
     @Override
     public void delete(long goodsId) {
-        String sql = "update ease_goods_info set status=0 where id=:goodsId";
+        String sql = "UPDATE ease_goods_info SET status=0 WHERE id=:goodsId";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("goodsId", goodsId);
         namedParameterJdbcTemplate.update(sql, params);

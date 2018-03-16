@@ -18,16 +18,17 @@ import java.util.Map;
  * @author maoyusu
  */
 @Repository
-public class ShopCartDaoImpl implements ShopCartDao {
+public class CartDaoImpl implements ShopCartDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final BeanPropertyRowMapper<ShopCart> ROW_MAPPER = new BeanPropertyRowMapper<>(ShopCart.class);
 
+    private static final String FIELDS = "id,user_id,goods_id,amount,status,create_time,update_time";
     @Override
     public List<ShopCart> getCart(long userId) {
-        String sql = "select * from ease_cart where user_id=:userId and status=1 order by create_time desc";
+        String sql = "SELECT " + FIELDS + " FROM ease_cart WHERE user_id=:userId AND status=1 ORDER BY create_time DESC";
         Map<String, Object> params = new HashMap<>(2);
         params.put("userId", userId);
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
@@ -35,7 +36,7 @@ public class ShopCartDaoImpl implements ShopCartDao {
 
     @Override
     public ShopCart getCart(long userId, long goodsId) {
-        String sql = "select * from ease_cart where user_id=:userId and goods_id=:goodsId and status=1 for update";
+        String sql = "SELECT " + FIELDS + " FROM ease_cart WHERE user_id=:userId AND goods_id=:goodsId AND status=1 FOR UPDATE";
         Map<String, Object> params = new HashMap<>(4);
         params.put("userId", userId);
         params.put("goodsId", goodsId);
@@ -60,8 +61,8 @@ public class ShopCartDaoImpl implements ShopCartDao {
 
     @Override
     public void changeCartAmount(long userId, long goodsId, long amount) {
-        String sql = "update ease_cart set amount=:amount" +
-                " where user_id=:userId and goods_id=:goodsId and status=1";
+        String sql = "UPDATE ease_cart SET amount=:amount" +
+                " WHERE user_id=:userId AND goods_id=:goodsId AND status=1";
         Map<String, Object> params = new HashMap<>(4);
         params.put("userId", userId);
         params.put("goodsId", goodsId);
@@ -71,15 +72,15 @@ public class ShopCartDaoImpl implements ShopCartDao {
 
     @Override
     public void batchDelete(List<ShopCartVO> shopCartVOs) {
-        String sql = "update ease_cart set status=0 " +
-                "where user_id=:userId and goods_id=:goodsId and status=1";
+        String sql = "UPDATE ease_cart SET status=0 " +
+                "WHERE user_id=:userId AND goods_id=:goodsId AND status=1";
         namedParameterJdbcTemplate.batchUpdate(sql, SqlParameterSourceUtils.createBatch(shopCartVOs.toArray()));
     }
 
     @Override
     public void delete(long userId, long goodsId) {
-        String sql = "update ease_cart set status=0" +
-                " where user_id=:userId and goods_id=:goodsId and status=1";
+        String sql = "UPDATE ease_cart SET status=0" +
+                " WHERE user_id=:userId AND goods_id=:goodsId AND status=1";
         Map<String, Object> params = new HashMap<>(4);
         params.put("userId", userId);
         params.put("goodsId", goodsId);

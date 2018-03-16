@@ -27,6 +27,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     private static final BeanPropertyRowMapper<PurchaseRecord> ROW_MAPPER = new BeanPropertyRowMapper<>(PurchaseRecord.class);
 
 
+    private static final String FIELDS = "id,user_id,goods_id,snap_goods_name,snap_price,snap_description,snap_detail,snap_pic_url,amount,purchase_time";
     @Override
     public void batchInsert(List<PurchaseRecord> purchaseRecords) {
         String sql = "INSERT INTO ease_purchase_record(user_id, goods_id, " +
@@ -37,7 +38,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Override
     public List<PurchaseRecord> getHistory(long userId) {
-        String sql = "select * from ease_purchase_record where user_id=:user_id";
+        String sql = "SELECT " + FIELDS +" FROM ease_purchase_record WHERE user_id=:user_id";
         Map<String, Object> params = new HashMap<>(2);
         params.put("user_id", userId);
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
@@ -45,7 +46,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Override
     public PurchaseRecord getPurchaseRecord(long snapId, long userId) {
-        String sql = "select * from ease_purchase_record where id=:snapId and user_id=:userId";
+        String sql = "SELECT " + FIELDS + " FROM ease_purchase_record WHERE id=:snapId AND user_id=:userId";
         Map<String, Object> params = new HashMap<>(4);
         params.put("snapId", snapId);
         params.put("userId", userId);
@@ -57,7 +58,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
         if (CollectionUtils.isEmpty(goodsIds)) {
             return Collections.emptyList();
         } else {
-            String sql = "select goods_id, sum(amount) sold from ease_purchase_record where goods_id in (:goodsIds) group by goods_id";
+            String sql = "SELECT goods_id, sum(amount) sold FROM ease_purchase_record WHERE goods_id IN (:goodsIds) GROUP BY goods_id";
             Map<String, Object> params = new HashMap<>(2);
             params.put("goodsIds", goodsIds);
             return namedParameterJdbcTemplate.query(sql, params, new BeanPropertyRowMapper<>(GoodsSold.class));
@@ -66,7 +67,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Override
     public PurchaseRecord hasBought(long userId, long goodsId) {
-        String sql = "select * from ease_purchase_record where user_id=:userId and goods_id=:goodsId fetch first 1 rows only";
+        String sql = "SELECT " + FIELDS + " FROM ease_purchase_record WHERE user_id=:userId AND goods_id=:goodsId FETCH FIRST 1 ROWS ONLY";
         Map<String, Object> params = new HashMap<>(4);
         params.put("userId", userId);
         params.put("goodsId", goodsId);

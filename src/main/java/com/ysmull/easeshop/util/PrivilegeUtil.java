@@ -79,9 +79,9 @@ public class PrivilegeUtil {
         WebResponse<String> webResponse = new WebResponse<>();
         if (roles.length > 1) {
             webResponse.setCode(WebResponse.NEED_LOGIN);
-        } else if(roles[0].equals(User.ROLE.BUYER)) {
+        } else if (roles[0].equals(User.ROLE.BUYER)) {
             webResponse.setCode(WebResponse.NEED_BUYER);
-        } else if(roles[0].equals(User.ROLE.SELLER)) {
+        } else if (roles[0].equals(User.ROLE.SELLER)) {
             webResponse.setCode(WebResponse.NEED_SELLER);
         }
         webResponse.setMsg("no auth!");
