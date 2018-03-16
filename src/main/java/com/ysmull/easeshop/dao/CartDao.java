@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author maoyusu
  */
-public interface ShopCartDao {
+public interface CartDao {
 
     /**
      * 获取用户的购物车

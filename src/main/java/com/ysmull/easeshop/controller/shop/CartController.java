@@ -1,7 +1,7 @@
 package com.ysmull.easeshop.controller.shop;
 
 import com.ysmull.easeshop.annotation.Privilege;
-import com.ysmull.easeshop.dao.ShopCartDao;
+import com.ysmull.easeshop.dao.CartDao;
 import com.ysmull.easeshop.model.entity.User;
 import com.ysmull.easeshop.model.vo.ShopCartVO;
 import com.ysmull.easeshop.model.vo.WebResponse;
@@ -24,7 +24,7 @@ public class CartController {
     private CartService cartService;
 
     @Autowired
-    private ShopCartDao shopCartDao;
+    private CartDao cartDao;
 
     @GetMapping("/getcart")
     @Privilege(role = User.ROLE.BUYER)
@@ -48,14 +48,14 @@ public class CartController {
     @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
     void changecart(@RequestBody ShopCartVO shopCartVO) {
-        shopCartDao.changeCartAmount(shopCartVO.getUserId(), shopCartVO.getGoodsId(), shopCartVO.getAmount());
+        cartDao.changeCartAmount(shopCartVO.getUserId(), shopCartVO.getGoodsId(), shopCartVO.getAmount());
     }
 
     @PostMapping("/deletecart")
     @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
     void deletecart(@RequestBody ShopCartVO shopCartVO) {
-        shopCartDao.delete(shopCartVO.getUserId(), shopCartVO.getGoodsId());
+        cartDao.delete(shopCartVO.getUserId(), shopCartVO.getGoodsId());
     }
 
 }

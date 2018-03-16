@@ -1,6 +1,6 @@
 package com.ysmull.easeshop.dao.impl;
 
-import com.ysmull.easeshop.dao.ShopCartDao;
+import com.ysmull.easeshop.dao.CartDao;
 import com.ysmull.easeshop.model.entity.ShopCart;
 import com.ysmull.easeshop.model.vo.ShopCartVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author maoyusu
  */
 @Repository
-public class CartDaoImpl implements ShopCartDao {
+public class CartDaoImpl implements CartDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;

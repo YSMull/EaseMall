@@ -1,7 +1,7 @@
 package com.ysmull.easeshop.service;
 
 import com.ysmull.easeshop.dao.PurchaseDao;
-import com.ysmull.easeshop.dao.ShopCartDao;
+import com.ysmull.easeshop.dao.CartDao;
 import com.ysmull.easeshop.model.entity.PurchaseRecord;
 import com.ysmull.easeshop.model.vo.ShopCartVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class PurchaseService {
     PurchaseDao purchaseDao;
 
     @Autowired
-    ShopCartDao shopCartDao;
+    CartDao cartDao;
 
     @Async
     @Transactional(rollbackFor = Exception.class)
@@ -42,7 +42,7 @@ public class PurchaseService {
             return r;
         }).collect(Collectors.toList());
         purchaseDao.batchInsert(purchaseRecords);
-        shopCartDao.batchDelete(shopCarts);
+        cartDao.batchDelete(shopCarts);
     }
 
     public List<PurchaseRecord> getPurchaseHistory(long userId) {

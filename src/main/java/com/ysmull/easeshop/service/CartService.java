@@ -1,7 +1,7 @@
 package com.ysmull.easeshop.service;
 
 import com.ysmull.easeshop.dao.GoodsDao;
-import com.ysmull.easeshop.dao.ShopCartDao;
+import com.ysmull.easeshop.dao.CartDao;
 import com.ysmull.easeshop.model.entity.Goods;
 import com.ysmull.easeshop.model.entity.ShopCart;
 import com.ysmull.easeshop.model.vo.ShopCartVO;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class CartService {
 
     @Autowired
-    ShopCartDao shopCartDao;
+    CartDao cartDao;
 
     @Autowired
     GoodsDao goodsDao;
@@ -32,7 +32,7 @@ public class CartService {
     private DataSourceTransactionManager transactionManager;
 
     public List<ShopCartVO> getCart(long userId) {
-        List<ShopCart> shopCarts = shopCartDao.getCart(userId);
+        List<ShopCart> shopCarts = cartDao.getCart(userId);
         List<Long> goodsIds = shopCarts.stream().map(ShopCart::getGoodsId)
                 .collect(Collectors.toList());
         List<Goods> goodsList = goodsDao.getGoodsByIds(goodsIds);
@@ -59,11 +59,11 @@ public class CartService {
      */
     @Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
     public void addCart(long userId, long goodsId, long amount) {
-        ShopCart shopCart = shopCartDao.getCart(userId, goodsId);
+        ShopCart shopCart = cartDao.getCart(userId, goodsId);
         if (shopCart == null) {
-            shopCartDao.addCart(userId, goodsId, amount);
+            cartDao.addCart(userId, goodsId, amount);
         } else {
-            shopCartDao.changeCartAmount(userId, goodsId, amount);
+            cartDao.changeCartAmount(userId, goodsId, amount);
         }
     }
 }
