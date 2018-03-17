@@ -15,6 +15,10 @@ logging:
             springframework:
                 transaction:
                     interceptor: TRACE
+#                jdbc:
+#                    core:
+#                      JdbcTemplate: debug
+#                      StatementCreatorUtils: TRACE
 server:
     compression:
         enabled: true
@@ -24,18 +28,7 @@ server:
         whitelabel:
             enabled: false
     port: 8181
-    undertow:
-        direct-buffers: true
-        io-threads: 30
-        worker-threads: 30
-        buffer-size: 200
-#        accesslog:
-#            dir: ~
-#            enabled: true
-#            pattern: common
-#            prefix: access_log.
-#            rotate: true
-#            suffix: log
+
 spring:
     application:
         name: easeShop
@@ -59,19 +52,3 @@ spring:
       caffeine:
         spec: maximumSize=50,expireAfterWrite=60s
       cache-names: userCache
-
-#    resources:
-#      chain:
-#        gzipped: true
-#        enabled: true
-#        cache: true
-#        strategy:
-#          content:
-#            enabled: true
-#log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
-#logging.level.org.springframework.web=debug
-#logging.level.org.springframework.jdbc.core.JdbcTemplate=debug
-#logging.level.org.springframework.jdbc.core.StatementCreatorUtils=TRACE
-#spring.datasource.driver-class-name=org.apache.derby.jdbc.EmbeddedDriver
-#spring.datasource.initialization-mode=embedded
-#server.undertow.buffer-size=

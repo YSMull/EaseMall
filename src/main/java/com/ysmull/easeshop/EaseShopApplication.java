@@ -2,7 +2,7 @@ package com.ysmull.easeshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
@@ -21,8 +21,10 @@ public class EaseShopApplication {
 
     @Bean
     public ConfigurableServletWebServerFactory webServerFactory() {
-        UndertowServletWebServerFactory factory = new UndertowServletWebServerFactory();
+        JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
         ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/");
+        factory.setAcceptors(Runtime.getRuntime().availableProcessors());
+//        factory.setSelectors(100);
         factory.addErrorPages(error404Page);
         return factory;
     }
