@@ -21,15 +21,18 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
-    @GetMapping("/goods")
+    @GetMapping("/goods/all")
     @ResponseBody
-    List<Goods> goodsList() {
+    List<Goods> goodsAll() {
+        return goodsService.getAllGoods();
+    }
+
+    @GetMapping("/goods/published")
+    @Privilege(role = User.ROLE.SELLER)
+    @ResponseBody
+    List<Goods> goodsPublished() {
         User user = UserContext.getCurrentUser();
-        if (user != null && user.getRole() == User.ROLE.SELLER) {
-            return goodsService.getPublishedGoods(user.getId());
-        } else {
-            return goodsService.getAllGoods();
-        }
+        return goodsService.getPublishedGoods(user.getId());
     }
 
     @GetMapping("/goods/{goodsId}")
