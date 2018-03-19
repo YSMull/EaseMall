@@ -24,7 +24,6 @@ public class EaseShopApplication {
         JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
         ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/");
         factory.setAcceptors(Runtime.getRuntime().availableProcessors());
-//        factory.setSelectors(100);
         factory.addErrorPages(error404Page);
         return factory;
     }
