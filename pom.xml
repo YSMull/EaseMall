@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ysmull</groupId>
-    <artifactId>easeshop</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>easeMall</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>EaseShop</name>
