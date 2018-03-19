@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,7 +27,7 @@ public class PrivilegeUtil {
 
     private static final Logger log = LoggerFactory.getLogger(PrivilegeUtil.class);
 
-    private static final long EXTERIOR = 180000000;
+    private static final long EXTERIOR = 6 * 1000;
     private static final String SECRET = "MYS&^e%!";
 
     private PrivilegeUtil() {
@@ -77,14 +78,14 @@ public class PrivilegeUtil {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletResponse httpResponse = ((ServletRequestAttributes) requestAttributes).getResponse();
         WebResponse<String> webResponse = new WebResponse<>();
-        if (roles.length > 1) {
-            webResponse.setCode(WebResponse.NEED_LOGIN);
-        } else if (roles[0].equals(User.ROLE.BUYER)) {
-            webResponse.setCode(WebResponse.NEED_BUYER);
-        } else if (roles[0].equals(User.ROLE.SELLER)) {
-            webResponse.setCode(WebResponse.NEED_SELLER);
+        webResponse.setCode(WebResponse.NO_AUTH);
+
+        if (roles.length == 0) {
+            webResponse.setMsg("need login");
+        } else {
+            String msg = Stream.of(roles).map(Enum::toString).collect(Collectors.joining(","));
+            webResponse.setMsg(String.format("need %s", msg));
         }
-        webResponse.setMsg("no auth!");
         httpResponse.getWriter().write(JSON.toJSONString(webResponse));
         httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         return null;

@@ -9,9 +9,7 @@ public class WebResponse<T> implements Serializable {
 
 
     public static final int CLIENT_ERROR = 400;
-    public static final int NEED_LOGIN = 4001;
-    public static final int NEED_BUYER = 4002;
-    public static final int NEED_SELLER = 4003;
+    public static final int NO_AUTH = 401;
     public static final int SERVER_ERROR = 500;
     public static final int SUCCESS = 0;
 

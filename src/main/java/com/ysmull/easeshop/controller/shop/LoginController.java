@@ -45,7 +45,7 @@ public class LoginController {
             userVO.setUserId(Long.parseLong(cookieValue.split(":")[0]));
             webResponse.setData(userVO);
         } else {
-            webResponse.setCode(WebResponse.NEED_LOGIN);
+            webResponse.setCode(WebResponse.NO_AUTH);
             webResponse.setMsg("login failed!");
         }
         return webResponse;
