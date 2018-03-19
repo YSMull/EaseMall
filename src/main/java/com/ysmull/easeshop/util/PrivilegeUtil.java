@@ -53,7 +53,7 @@ public class PrivilegeUtil {
         }
         String md5Cookie = Stream.of(uid.toString(), t.toString(), md5)
                 .collect(Collectors.joining(":"));
-        log.debug("md5Cookie:{0}", md5Cookie);
+        log.debug("md5Cookie:{}", md5Cookie);
         return md5Cookie;
     }
 
