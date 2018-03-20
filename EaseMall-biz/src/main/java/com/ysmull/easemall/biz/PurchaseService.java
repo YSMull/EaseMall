@@ -12,12 +12,14 @@ public interface PurchaseService {
 
     /**
      * 购买商品
+     *
      * @param shopCarts 购物车列表
      */
     void buy(List<ShopCartVO> shopCarts);
 
     /**
      * 获取用户的所有购物记录
+     *
      * @param userId 用户id
      * @return 返回PurchaseRecord列表
      */
@@ -26,6 +28,7 @@ public interface PurchaseService {
 
     /**
      * 根据交易快照id获取用户某一次的购物记录
+     *
      * @param snapId 交易快照id
      * @param userId 用户id
      * @return 交易记录

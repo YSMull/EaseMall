@@ -20,9 +20,9 @@ public interface CartService {
     /**
      * 添加商品至购物车
      *
-     * @param userId 用户id
+     * @param userId  用户id
      * @param goodsId 商品id
-     * @param amount 商品个数
+     * @param amount  商品个数
      */
     void addCart(long userId, long goodsId, long amount);
 }

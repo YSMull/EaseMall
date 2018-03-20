@@ -27,11 +27,9 @@ import java.io.IOException;
 @WebFilter(filterName = "validation", urlPatterns = "/*", asyncSupported = true)
 public class ValidateFilter implements Filter {
 
-    private final Logger logger = LoggerFactory.getLogger(ValidateFilter.class);
-
-    private final RateLimiter rateLimiter = RateLimiter.create(800.0);
-
     private final static String WEB_RESOURCES_PATH = "/dist/";
+    private final Logger logger = LoggerFactory.getLogger(ValidateFilter.class);
+    private final RateLimiter rateLimiter = RateLimiter.create(800.0);
     @Resource
     private UserServiceImpl userService;
 

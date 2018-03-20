@@ -81,7 +81,7 @@ public class EaseMallApplicationTests {
             insertParams.addValue("threadName", Thread.currentThread().toString());
             namedParameterJdbcTemplate.update(insertSql, insertParams, keyHolder);
 
-            String selectSql = "select name from ease_test where id=:id";
+            String selectSql = "SELECT name FROM ease_test WHERE id=:id";
             MapSqlParameterSource selectParams = new MapSqlParameterSource();
             selectParams.addValue("id", keyHolder.getKey().longValue());
             String actual = namedParameterJdbcTemplate.queryForObject(selectSql, selectParams, String.class);

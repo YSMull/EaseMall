@@ -27,7 +27,7 @@ public class PrivilegeUtil {
     private static final Logger log = LoggerFactory.getLogger(PrivilegeUtil.class);
 
     /**
-     *  五分钟登陆过期
+     * 五分钟登陆过期
      */
     private static final long EXTERIOR = 5 * 60 * 1000;
     private static final String SECRET = "MYS&^e%!";

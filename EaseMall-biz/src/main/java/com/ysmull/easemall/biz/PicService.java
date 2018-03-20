@@ -23,7 +23,7 @@ public interface PicService {
      * 下载图片
      *
      * @param uuid 图片id
-     * @param res HttpServletResponse
+     * @param res  HttpServletResponse
      * @throws Exception
      */
     void getPic(String uuid, HttpServletResponse res) throws Exception;
