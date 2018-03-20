@@ -9,15 +9,21 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>EaseMall-web</artifactId>
-
-
     <dependencies>
         <dependency>
             <groupId>com.ysmull.easemall</groupId>
             <artifactId>EaseMall-biz</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
