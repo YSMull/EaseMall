@@ -40,7 +40,7 @@ CREATE TABLE ease_purchase_record (
   snap_goods_name VARCHAR(128) NOT NULL,
   snap_price FLOAT NOT NULL,
   snap_description VARCHAR(200) NOT NULL,
-  snap_detail CLOB(64000) NOT NULL,
+  snap_detail VARCHAR(2000) NOT NULL,
   snap_pic_url VARCHAR(255) NOT NULL,
   amount INT NOT NULL,
   purchase_time TIMESTAMP DEFAULT current_timestamp NOT NULL,

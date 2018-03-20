@@ -1,6 +1,7 @@
 package com.ysmull.easemall.dao.impl;
 
 import com.ysmull.easemall.dao.GoodsDao;
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -55,11 +56,15 @@ public class GoodsDaoImpl implements GoodsDao {
     }
 
     @Override
-    public Goods get(long goodsId) {
+    public Goods get(long goodsId) throws RecordNotFoundException {
         String sql = "SELECT " + FIELDS + " FROM ease_goods_info WHERE id =:goodsId AND status = 1";
         Map<String, Object> params = new HashMap<>(2);
         params.put("goodsId", goodsId);
-        return namedParameterJdbcTemplate.queryForObject(sql, params, ROW_MAPPER);
+        try {
+            return namedParameterJdbcTemplate.queryForObject(sql, params, ROW_MAPPER);
+        } catch (Exception e) {
+            throw new RecordNotFoundException("no record");
+        }
     }
 
     @Override

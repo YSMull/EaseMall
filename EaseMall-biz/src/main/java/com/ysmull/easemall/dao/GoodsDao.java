@@ -1,5 +1,6 @@
 package com.ysmull.easemall.dao;
 
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.Goods;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public interface GoodsDao {
      * @param goodsId 商品id
      * @return Goods
      */
-    Goods get(long goodsId);
+    Goods get(long goodsId) throws RecordNotFoundException;
 
     /**
      * 添加商品，并返回新增商品的id

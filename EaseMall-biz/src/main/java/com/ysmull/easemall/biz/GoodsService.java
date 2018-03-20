@@ -1,5 +1,6 @@
 package com.ysmull.easemall.biz;
 
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.Goods;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public interface GoodsService {
      * @param goodsId 商品id
      * @return Goods
      */
-    Goods get(long goodsId);
+    Goods get(long goodsId) throws RecordNotFoundException;
 
     /**
      * 删除商品，并没有真的删除，只是讲商品状态标记为不可用

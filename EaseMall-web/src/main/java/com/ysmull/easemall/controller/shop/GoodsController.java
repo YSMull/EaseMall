@@ -2,6 +2,7 @@ package com.ysmull.easemall.controller.shop;
 
 import com.ysmull.easemall.annotation.Privilege;
 import com.ysmull.easemall.biz.GoodsService;
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.Goods;
 import com.ysmull.easemall.model.entity.User;
 import com.ysmull.easemall.model.vo.WebResponse;
@@ -41,7 +42,7 @@ public class GoodsController {
 
     @GetMapping("/goods/{goodsId}")
     @ResponseBody
-    WebResponse<Goods> getGoods(@PathVariable("goodsId") long goodsId) {
+    WebResponse<Goods> getGoods(@PathVariable("goodsId") long goodsId) throws RecordNotFoundException {
         WebResponse<Goods> webResponse = new WebResponse<>();
         Goods goods = goodsService.get(goodsId);
         webResponse.setData(goods);

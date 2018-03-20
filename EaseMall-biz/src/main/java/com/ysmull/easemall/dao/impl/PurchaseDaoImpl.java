@@ -1,6 +1,7 @@
 package com.ysmull.easemall.dao.impl;
 
 import com.ysmull.easemall.dao.PurchaseDao;
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.GoodsSold;
 import com.ysmull.easemall.model.entity.PurchaseRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,16 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public PurchaseRecord getPurchaseRecord(long snapId, long userId) {
+    public PurchaseRecord getPurchaseRecord(long snapId, long userId) throws RecordNotFoundException {
         String sql = "SELECT " + FIELDS + " FROM ease_purchase_record WHERE id=:snapId AND user_id=:userId";
         Map<String, Object> params = new HashMap<>(4);
         params.put("snapId", snapId);
         params.put("userId", userId);
-        return namedParameterJdbcTemplate.queryForObject(sql, params, new BeanPropertyRowMapper<>(PurchaseRecord.class));
+        try {
+            return namedParameterJdbcTemplate.queryForObject(sql, params, new BeanPropertyRowMapper<>(PurchaseRecord.class));
+        } catch (Exception e) {
+            throw new RecordNotFoundException("no record");
+        }
     }
 
     @Override

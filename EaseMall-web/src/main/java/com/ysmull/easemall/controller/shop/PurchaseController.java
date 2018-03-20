@@ -2,6 +2,7 @@ package com.ysmull.easemall.controller.shop;
 
 import com.ysmull.easemall.annotation.Privilege;
 import com.ysmull.easemall.biz.PurchaseService;
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.PurchaseRecord;
 import com.ysmull.easemall.model.entity.User;
 import com.ysmull.easemall.model.vo.ShopCartVO;
@@ -42,7 +43,7 @@ public class PurchaseController {
     @GetMapping("snapshot/{snapId}")
     @Privilege(role = User.ROLE.BUYER)
     @ResponseBody
-    public WebResponse<PurchaseRecord> snapshot(@PathVariable("snapId") Long snapId) {
+    public WebResponse<PurchaseRecord> snapshot(@PathVariable("snapId") Long snapId) throws RecordNotFoundException {
         WebResponse<PurchaseRecord> webResponse = new WebResponse<>();
         User user = UserContext.getCurrentUser();
         webResponse.setData(purchaseService.getPurchaseRecord(snapId, user.getId()));

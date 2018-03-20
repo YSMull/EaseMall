@@ -4,6 +4,7 @@ import com.ysmull.easemall.biz.GoodsService;
 import com.ysmull.easemall.biz.PurchaseService;
 import com.ysmull.easemall.dao.GoodsDao;
 import com.ysmull.easemall.dao.PurchaseDao;
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.Goods;
 import com.ysmull.easemall.model.entity.GoodsSold;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Goods get(long goodsId) {
+    public Goods get(long goodsId) throws RecordNotFoundException {
         return goodsDao.get(goodsId);
     }
 

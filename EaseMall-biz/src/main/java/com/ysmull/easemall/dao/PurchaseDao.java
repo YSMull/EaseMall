@@ -1,5 +1,6 @@
 package com.ysmull.easemall.dao;
 
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.GoodsSold;
 import com.ysmull.easemall.model.entity.PurchaseRecord;
 
@@ -32,7 +33,7 @@ public interface PurchaseDao {
      * @param userId 用户id
      * @return PurchaseRecord
      */
-    PurchaseRecord getPurchaseRecord(long snapId, long userId);
+    PurchaseRecord getPurchaseRecord(long snapId, long userId) throws RecordNotFoundException;
 
     /**
      * 获取商品的销售情况

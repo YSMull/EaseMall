@@ -1,6 +1,7 @@
 package com.ysmull.easemall.controller.common;
 
 import com.ysmull.easemall.exception.PicNotFoundException;
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.vo.WebResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class CustomerControllerAdvice {
         log.error(ex.toString(), ex);
         WebResponse<String> response = new WebResponse<>();
 
-        if (ex instanceof PicNotFoundException) {
+        if (ex instanceof PicNotFoundException || ex instanceof RecordNotFoundException) {
             httpResponse.setStatus(WebResponse.NOT_FOUND);
             response.setCode(WebResponse.NOT_FOUND);
         } else {

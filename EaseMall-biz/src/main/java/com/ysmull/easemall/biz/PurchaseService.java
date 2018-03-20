@@ -1,5 +1,6 @@
 package com.ysmull.easemall.biz;
 
+import com.ysmull.easemall.exception.RecordNotFoundException;
 import com.ysmull.easemall.model.entity.PurchaseRecord;
 import com.ysmull.easemall.model.vo.ShopCartVO;
 
@@ -33,7 +34,7 @@ public interface PurchaseService {
      * @param userId 用户id
      * @return 交易记录
      */
-    PurchaseRecord getPurchaseRecord(long snapId, long userId);
+    PurchaseRecord getPurchaseRecord(long snapId, long userId) throws RecordNotFoundException;
 
     /**
      * 判断用户是否购买过某商品
